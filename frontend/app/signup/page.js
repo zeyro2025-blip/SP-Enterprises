@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AuthForm } from "@/components/ui/AuthForm";
 
-export default function SignupPage() {
+function SignupContent() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/";
 
@@ -24,5 +25,13 @@ export default function SignupPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="container"><section className="page-hero"><p>Loading...</p></section></div>}>
+      <SignupContent />
+    </Suspense>
   );
 }
